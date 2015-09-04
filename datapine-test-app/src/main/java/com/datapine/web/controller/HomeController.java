@@ -17,10 +17,10 @@ public class HomeController {
 		return new ModelAndView("index");
 	}
 
-//   new
-//    @RequestMapping("/login")
-//    public ModelAndView login() {
-//        return new ModelAndView("login");
-//    }
+
+    @RequestMapping("/login")
+    public ModelAndView login() {
+        return new ModelAndView("login");
+    }
 
 }
