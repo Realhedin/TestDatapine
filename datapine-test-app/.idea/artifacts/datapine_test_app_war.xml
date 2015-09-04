@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="datapine-test-app:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="datapine-test-app-0.1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="datapine-test-app:war exploded" />
+    </root>
+  </artifact>
+</component>
