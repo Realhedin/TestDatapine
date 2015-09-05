@@ -2,9 +2,10 @@ package com.datapine.web.controller;
 
 import com.datapine.dao.UserDAO;
 import com.datapine.domain.User;
+import com.datapine.service.UserService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,8 +16,9 @@ import org.springframework.web.servlet.ModelAndView;
 public class HomeController {
 
     @Autowired
+    private UserService userService;
+    @Autowired
     private UserDAO userDAO;
-    private User u;
 
 	/*
 	 * This controller will only work, if the Spring MVC settings are set
@@ -37,13 +39,22 @@ public class HomeController {
     @RequestMapping(value = "/tryLogin", method = RequestMethod.POST)
     public ModelAndView tryLogin(@ModelAttribute("user") User user, BindingResult result) {
         System.out.println("We are here");
-        //temporary fill db
-        userDAO.save(user);
         User loginUser = userDAO.findByEmail(user.getEmail());
         if (loginUser != null) {
             return new ModelAndView("index");
         }
         return new ModelAndView("login");
+    }
+
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public ModelAndView register(@ModelAttribute("user") User user) {
+        if (user != null) {
+            if (StringUtils.isNotEmpty(user.getEmail()) && StringUtils.isNotEmpty(user.getPassword())) {
+              userService.register(user.getEmail(),user.getPassword());
+            }
+        }
+        return new ModelAndView("index");
     }
 
 }

@@ -11,11 +11,21 @@
 <body>
 
 <form method="POST" action="tryLogin">
-	Name: <input name="email" type="text" />
+	Email: <input name="email" type="text" />
 	<br />
 	Password: <input name="password" type="password" />
 	<br />
 	<input type="submit" value="login" />
+</form>
+
+</br></br>or</br>
+<p>Register new user: </p>
+<form method="post" action="register">
+    mail: <input name="email" type="text" />
+    <br />
+    Password: <input name="password" type="password" />
+    <br />
+    <input type="submit" value="register"/>
 </form>
 
 </body>

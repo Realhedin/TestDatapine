@@ -7,6 +7,7 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.Iterator;
 
@@ -52,7 +53,11 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public User findByEmail(String email) {
-        return em.createNamedQuery("User.getByEmail", User.class).setParameter(1,email).getSingleResult();
+        try {
+            return em.createNamedQuery("User.getByEmail", User.class).setParameter(1, email).getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 
     @Override
