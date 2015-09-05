@@ -3,15 +3,19 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jee="http://www.springframework.org/schema/jee"
 	xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:jdbc="http://www.springframework.org/schema/jdbc"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
            http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
            http://www.springframework.org/schema/tx
-		   http://www.springframework.org/schema/tx/spring-tx.xsd">
+		   http://www.springframework.org/schema/tx/spring-tx.xsd
+		   http://www.springframework.org/schema/jdbc
+		   http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
 
 	<bean id="dataSource" destroy-method="close"
 		class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="org.h2.Driver" />
-		<property name="url" value="jdbc:h2:mem:test" />
+		<!--<property name="url" value="jdbc:h2:mem:test;INIT=create schema if not exists test\;runscript from '~/populateH2.sql'" />-->
+        <property name="url" value="jdbc:h2:mem:test"/>
 		<property name="username" value="sa" />
 		<property name="password" value="" />
 	</bean>
@@ -45,5 +49,11 @@
 </bean>
 
 <tx:annotation-driven/>
+
+
+   <jdbc:initialize-database data-source="dataSource" enabled="true">
+        <!--<jdbc:script location="classpath:db/createDB.sql"/>-->
+        <jdbc:script encoding="utf-8" location="classpath:META-INF/sql/populateH2.sql"/>
+    </jdbc:initialize-database>
 
         </beans>

@@ -3,7 +3,7 @@ package com.datapine.domain;
 import javax.persistence.*;
 
 @Entity
-//@Table(name = "users")
+@Table(name = "users")
 @NamedQueries({
         @NamedQuery(name = "User.getByEmail", query = "SELECT u FROM User u WHERE u.email=?1"),
         @NamedQuery(name = "User.findAllOrderById", query = "SELECT u FROM User u ORDER BY u.id")
