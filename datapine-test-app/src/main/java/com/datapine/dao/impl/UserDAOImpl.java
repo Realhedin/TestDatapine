@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by Dmitrii on 9/4/15.
@@ -61,7 +62,13 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public Iterator<User> findAllOrderById() {
-        return em.createNamedQuery("User.findAllOrderById", User.class).getResultList().iterator();
+    public List<User> findAllOrderById() {
+        return em.createNamedQuery("User.findAllOrderById", User.class).getResultList();
+    }
+
+
+    @Override
+    public User getReference(Long id) {
+        return em.getReference(User.class,id);
     }
 }

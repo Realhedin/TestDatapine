@@ -1,6 +1,7 @@
 package com.datapine.dao;
 
 import java.util.Iterator;
+import java.util.List;
 
 import com.datapine.domain.User;
 
@@ -16,6 +17,9 @@ public interface UserDAO {
 
 	User findByEmail(String email);
 
-	Iterator<User> findAllOrderById();
+	//Iterator<User> findAllOrderById();
+    List<User> findAllOrderById();
+
+    User getReference(Long id);
 
 }
