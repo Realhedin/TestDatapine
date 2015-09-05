@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<form method="POST">
+<form method="POST" action="tryLogin">
 	Name: <input name="email" type="text" />
 	<br />
 	Password: <input name="password" type="password" />
