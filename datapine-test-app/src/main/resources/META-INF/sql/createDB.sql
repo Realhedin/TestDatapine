@@ -1,0 +1,8 @@
+-- CREATE TABLE USERS
+-- (
+--     id bigint  PRIMARY KEY NOT NULL,
+--     email varchar2  NOT NULL,
+--     password varchar2  NOT NULL,
+--     role varchar2  NOT NULL
+-- );
+-- ALTER TABLE USERS ADD CONSTRAINT unique_email UNIQUE (email);

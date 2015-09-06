@@ -14,11 +14,13 @@ public class User {
 	@GeneratedValue
 	private Long id;
 
-//    @Column(name = "email", nullable = false, unique = true)
+    @Column(name = "email", nullable = false, unique = true)
 	private String email;
 
-//    @Column(name = "password", nullable = false)
+    @Column(name = "password", nullable = false)
 	private String password;
+
+//    private String role;
 
 	public User(final String email) {
 		this.email = email;
@@ -56,4 +58,11 @@ public class User {
 		return password;
 	}
 
+//    public String getRole() {
+//        return role;
+//    }
+//
+//    public void setRole(String role) {
+//        this.role = role;
+//    }
 }
