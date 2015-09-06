@@ -12,9 +12,10 @@
 <h1>Welcome to your test!</h1>
 
 
-If you are admin - go to users list
+Show list of users in DB:
+(you have to be authorized for that)
 <c:url var="mainUrl" value="/users/" />
-<p>Return to <a href="${mainUrl}">Main List</a></p>
+<p>Go to <a href="${mainUrl}">Main List</a></p>
 
 </body>
 </html>

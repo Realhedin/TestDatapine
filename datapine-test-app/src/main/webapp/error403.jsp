@@ -20,8 +20,8 @@ You don't have authorities to do this action!
 <p>Return to <a href="${mainUrl}">Main List</a></p>
 
 <br>
-<c:url var="loginUrl" value="/login" />
-<p>Return to <a href="${loginUrl}">Login page</a></p>
+<br><h3>Login with another user:</h3>
+<a href="<c:url value="/j_spring_security_logout" />" > Logout</a>
 
 </body>
 </html>
