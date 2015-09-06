@@ -1,3 +1,18 @@
+________________Implemented________________
+1. UserDAOImpl (realization of UserDAO interface)
+2. changes in cofigurations files (to enable component scan, annotations, transactions and so on).
+3. UserServieImpl (realization of UserService interface)
+4. Implementation of UserController logic for Users with necessary JSPs (instead analog logic for Items)
+5. Added logging with Log4j. (As required used for showing logging attempts + starting info)
+6. Added Spring Security with 2 predefined users.
+7. Added 3 roles for Security: /index - open for everyone, /users/ and /users/show - open for registered,
+/users/add, /users/update and /users/delete - open only for ROLE_ADMIN
+8. Added session management.
+9. Added security annotation for methods.
+10. Added 2 JUnit tests (Testing.java - test shows that communication with DB works properly,
+TestSecurity.java - test shows predefined roles work properly to prevent action if role is not enough to perform it).
+
+____________________________________________
 Text for Pre-Email to applicant:
 You will receive an application skeleton with a number of tasks to complete. The application is a web application, which uses Maven, JPA and Spring. It comes with an embedded H2 database and the Maven Jetty plugin configured.
 
