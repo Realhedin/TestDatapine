@@ -5,6 +5,7 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 http://www.springframework.org/schema/security
 http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
+    <global-method-security secured-annotations="enabled" pre-post-annotations="enabled"/>
 
     <http access-denied-page="/error403.jsp">
         <intercept-url pattern="/" access="ROLE_USER,ROLE_ADMIN,ROLE_ANONYMOUS" />

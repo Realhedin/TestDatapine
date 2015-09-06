@@ -4,6 +4,7 @@ import com.datapine.dao.UserDAO;
 import com.datapine.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +29,7 @@ public class UserController {
 //        return Arrays.asList(u);
 //    }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = {"/","/index"}, method = RequestMethod.GET)
 	public ModelAndView listUsers() {
 
         ModelAndView model = new ModelAndView("userlist");
@@ -43,7 +44,6 @@ public class UserController {
         model.addObject("user",new User());
         return model;
     }
-
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
 	public ModelAndView addUser(@ModelAttribute("user") User user) {

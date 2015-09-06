@@ -2,6 +2,7 @@ package com.datapine.dao.impl;
 
 import com.datapine.dao.UserDAO;
 import com.datapine.domain.User;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Repository;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,6 +37,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     @Transactional
+    @Secured("ROLE_ADMIN")
     public User update(User user) {
         em.merge(user);
         return user;
