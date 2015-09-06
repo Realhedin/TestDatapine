@@ -30,7 +30,7 @@ public class HomeController {
 	 * completely and correctly (just as a hint).
 	 */
 
-	@RequestMapping("/")
+	@RequestMapping(value = {"/","/index"})
 	public ModelAndView showWelcome() {
 		return new ModelAndView("index");
 	}
