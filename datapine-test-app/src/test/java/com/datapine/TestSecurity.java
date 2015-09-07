@@ -16,6 +16,7 @@ import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.core.userdetails.memory.InMemoryDaoImpl;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
@@ -38,18 +39,23 @@ import java.util.List;
 public class TestSecurity {
 
     static ApplicationContext applicationContext = null;
-    static InMemoryUserDetailsManager userDetailsService = null;
+//    static InMemoryUserDetailsManager userDetailsService = null;
+     //static UserDetailsService userDetailsService = null;
 
    @Autowired
     private UserDAO userDAO;
+
+    @Autowired
+    private UserDetailsService userDetailsService;
 
     @BeforeClass
     public static void setup()
     {
         //Create application context instance
-        applicationContext = new ClassPathXmlApplicationContext("META-INF/spring/applicationSecurity.xml");
+        //applicationContext = new ClassPathXmlApplicationContext("META-INF/spring/applicationSecurity.xml");
         //Get user details service configured in configuration
-        userDetailsService = applicationContext.getBean(InMemoryUserDetailsManager.class);
+        //userDetailsService = applicationContext.getBean(InMemoryUserDetailsManager.class);
+        //userDetailsService = (UserDetailsService) applicationContext.getBean("userDetailsService");
     }
 
     /**
@@ -59,7 +65,7 @@ public class TestSecurity {
     public void testValidRole()
     {
         //Get the user by username from configured user details service
-        UserDetails userDetails = userDetailsService.loadUserByUsername("admin1");
+        UserDetails userDetails = userDetailsService.loadUserByUsername("admin");
         Authentication authToken = new UsernamePasswordAuthenticationToken(userDetails.getUsername(), userDetails.getPassword(), userDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authToken);
         User u = new User("user","user");
@@ -74,7 +80,7 @@ public class TestSecurity {
     @Test (expected = AccessDeniedException.class)
     public void testInvalidRole()
     {
-        UserDetails userDetails = userDetailsService.loadUserByUsername ("user2");
+        UserDetails userDetails = userDetailsService.loadUserByUsername ("user");
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
         authorities.add(new SimpleGrantedAuthority("ROLE_INVALID"));
         Authentication authToken = new UsernamePasswordAuthenticationToken (userDetails.getUsername(), userDetails.getPassword(), authorities);

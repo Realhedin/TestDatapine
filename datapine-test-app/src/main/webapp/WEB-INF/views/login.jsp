@@ -23,7 +23,7 @@
 
 <br><br>
 <p style="background:rgba(145, 16, 255, 0.20)">Spring security login:
-<br>Current users: admin1/111 and user2/222</p>
+<br>Current users: admin/admin and user/user</p>
 <form method="POST" action="<c:url value="/j_spring_security_check" />">
     <table>
         <tr>
