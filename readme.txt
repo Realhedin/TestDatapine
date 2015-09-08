@@ -12,6 +12,10 @@ ________________Implemented________________
 10. Added 2 JUnit tests (Testing.java - test shows that communication with DB works properly,
 TestSecurity.java - test shows predefined roles work properly to prevent action if role is not enough to perform it).
 
+11. Added Item domen and ItemDAO with ItemDAOImpl.
+12. Added business logic for Item according to User.
+13. Added Spring Security covering for /items/ urls.
+
 ____________________________________________
 Text for Pre-Email to applicant:
 You will receive an application skeleton with a number of tasks to complete. The application is a web application, which uses Maven, JPA and Spring. It comes with an embedded H2 database and the Maven Jetty plugin configured.
