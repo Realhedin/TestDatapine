@@ -19,12 +19,12 @@
         <tr>
             <td align="right"><spring:message code="label.login" /></td>
             <td><label>Email:</label>
-                <input type="text" name="j_username" /></td>
+                <input type="text" name="j_username" required/></td>
         </tr>
         <tr>
-            <td align="right"><spring:message code="label.password" /></td>
+            <td align="right"><spring:message code="label.password"/></td>
             <td><label>Password:</label>
-                <input type="password" name="j_password" /></td>
+                <input type="password" name="j_password" required/></td>
         </tr>
         <tr>
             <td align="right"><spring:message code="label.remember" /></td>
@@ -40,10 +40,10 @@
 
 <br><br>or<br>
 <h2>Register new user: </h2>
-<form method="post" action="register">
-    Email: <input name="email" type="text" />
+<form name="regForm" method="post" action="register" onsubmit="return validateRegister()">
+    Email: <input name="email" type="text" required/>
     <br />
-    Password: <input name="password" type="password" />
+    Password: <input name="password" type="password" required/>
     <br />
     <input type="submit" value="register"/>
 </form>
