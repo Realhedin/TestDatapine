@@ -36,15 +36,15 @@
         <c:url var="deleteUrl" value="/items/delete?id=${item.id}" />
         <tr>
             <td><c:out value="${item.product}" /></td>
-            <td><a href="${deleteUrl}&userId=${pageContext.request.userPrincipal.name}">Delete</a></td>
-            <td><a href="${addUrl}?id=${pageContext.request.userPrincipal.name}">Add</a></td>
+            <td><a href="${deleteUrl}">Delete</a></td>
+            <td><a href="${addUrl}">Add</a></td>
         </tr>
     </c:forEach>
     </tbody>
 </table>
 
 <c:if test="${empty itemsList}">
-    There are currently no items in the list for this user. <a href="${addUrl}?id=${pageContext.request.userPrincipal.name}">Add</a> an item..
+    There are currently no items in the list for this user. <a href="${addUrl}">Add</a> an item..
 </c:if>
 
 

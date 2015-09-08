@@ -30,11 +30,8 @@ public class ItemController {
     private UserDAO userDAO;
 
     @RequestMapping(value = {"/"}, method = RequestMethod.GET)
-    public ModelAndView listItems(@RequestParam(value = "id", required = false) String email) {
-        if (StringUtils.isEmpty(email)) {
-            return new ModelAndView("redirect:/users/");
-        }
-        User user = userDAO.findByEmail(email);
+    public ModelAndView listItems(Principal principal) {
+        User user = userDAO.findByEmail(principal.getName());
         ModelAndView model = new ModelAndView("itemlist");
         List<Item> list = itemDAO.findAllOrderById(user.getId());
         model.addObject("itemsList", list);
@@ -43,26 +40,25 @@ public class ItemController {
 
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public ModelAndView addItem(@RequestParam(value = "id", required = true) String email) {
+    public ModelAndView addItem() {
         ModelAndView model = new ModelAndView("addItem");
         model.addObject("item",new Item());
         return model;
     }
 
-    @RequestMapping(value = "/add/{email}", method = RequestMethod.POST)
-    public ModelAndView addItem(@PathVariable("email") String email ,@ModelAttribute("item") Item item) {
-        item.setUser(userDAO.findByEmail(email));
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public ModelAndView addItem(@ModelAttribute("item") Item item, Principal principal) {
+        item.setUser(userDAO.findByEmail(principal.getName()));
         if (item != null && item.getUser() != null) {
             itemDAO.save(item);
         }
-        return new ModelAndView("redirect:/items/?id="+item.getUser().getEmail()+"");
+        return new ModelAndView("redirect:/items/");
     }
 
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
-    public ModelAndView deleteUser(@RequestParam(value = "id", required = true) Long id,
-                                   @RequestParam(value = "userId", required = true) String email) {
+    public ModelAndView deleteUser(@RequestParam(value = "id", required = true) Long id) {
         itemDAO.delete(id);
-        return new ModelAndView("redirect:/items/?id="+email+"");
+        return new ModelAndView("redirect:/items/");
     }
 }

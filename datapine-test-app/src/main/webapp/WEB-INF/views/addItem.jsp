@@ -24,7 +24,7 @@
 
 <h1>Create New Item</h1>
 <c:url var="saveUrl" value="/items/add" />
-<form:form modelAttribute="item" method="POST" action="${saveUrl}/${pageContext.request.userPrincipal.name}">
+<form:form modelAttribute="item" method="POST" action="${saveUrl}">
     <table>
         <tr>
             <td><form:label path="product">Product:</form:label></td>
