@@ -9,6 +9,8 @@ http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
     <http access-denied-page="/error403.jsp">
         <intercept-url pattern="/" access="ROLE_USER,ROLE_ADMIN,ROLE_ANONYMOUS" />
+        <intercept-url pattern="/items/" access="ROLE_USER,ROLE_ADMIN"/>
+        <intercept-url pattern="/items/*" access="ROLE_USER,ROLE_ADMIN"/>
         <intercept-url pattern="/users/" access="ROLE_USER,ROLE_ADMIN"/>
         <intercept-url pattern="/users/show*" access="ROLE_USER,ROLE_ADMIN"/>
         <intercept-url pattern="/users/*" access="ROLE_ADMIN" />

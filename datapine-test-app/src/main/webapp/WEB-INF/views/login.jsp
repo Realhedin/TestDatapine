@@ -11,32 +11,25 @@
 </head>
 <body>
 
-<br>Basic login without security, but with login/password from DB
-<br>Current users: admin/admin and user/user<br>
-<form method="POST" action="tryLogin">
-	Email: <input name="email" type="text" />
-	<br />
-	Password: <input name="password" type="password" />
-	<br />
-	<input type="submit" value="login" />
-</form>
-
-<br><br>
+<h2>Login:</h2>
 <p style="background:rgba(145, 16, 255, 0.20)">Spring security login:
 <br>Current users: admin/admin and user/user</p>
 <form method="POST" action="<c:url value="/j_spring_security_check" />">
     <table>
         <tr>
             <td align="right"><spring:message code="label.login" /></td>
-            <td><input type="text" name="j_username" /></td>
+            <td><label>Email:</label>
+                <input type="text" name="j_username" /></td>
         </tr>
         <tr>
             <td align="right"><spring:message code="label.password" /></td>
-            <td><input type="password" name="j_password" /></td>
+            <td><label>Password:</label>
+                <input type="password" name="j_password" /></td>
         </tr>
         <tr>
             <td align="right"><spring:message code="label.remember" /></td>
-            <td><input type="checkbox" name="_spring_security_remember_me" /></td>
+            <td><label>Remember me</label>
+                <input type="checkbox" name="_spring_security_remember_me" /></td>
         </tr>
         <tr>
             <td colspan="2" align="right"><input type="submit" value="Login" />
@@ -45,10 +38,10 @@
     </table>
 </form>
 
-</br></br>or</br>
-<p>Register new user: </p>
+<br><br>or<br>
+<h2>Register new user: </h2>
 <form method="post" action="register">
-    mail: <input name="email" type="text" />
+    Email: <input name="email" type="text" />
     <br />
     Password: <input name="password" type="password" />
     <br />

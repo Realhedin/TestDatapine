@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: Dmitrii
-  Date: 9/5/15
-  Time: 5:57 PM
+  Date: 9/8/15
+  Time: 9:43 PM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -23,39 +23,34 @@
 
 
 <h1>Items</h1>
-<c:url var="Items" value="/items/" />
-<a href="${Items}?id=${pageContext.request.userPrincipal.name}">Go to List of Items</a>
-
-
-<h1>Users</h1>
-
-<c:url var="addUrl" value="/users/add" />
+<c:url var="addUrl" value="/items/add" />
 <table style="border: 1px solid; width: 500px; text-align:center">
     <thead style="background:#ff00f9">
     <tr>
-        <th>Email</th>
+        <th>Product</th>
         <th colspan="4">Links</th>
     </tr>
     </thead>
     <tbody>
-    <c:forEach items="${usersList}" var="user">
-        <c:url var="editUrl" value="/users/edit?id=${user.id}" />
-        <c:url var="deleteUrl" value="/users/delete?id=${user.id}" />
-        <c:url var="showUrl" value="/users/show?id=${user.id}"/>
+    <c:forEach items="${itemsList}" var="item">
+        <c:url var="deleteUrl" value="/items/delete?id=${item.id}" />
         <tr>
-            <td><c:out value="${user.email}" /></td>
-            <td><a href="${editUrl}">Edit</a></td>
-            <td><a href="${deleteUrl}">Delete</a></td>
-            <td><a href="${addUrl}">Add</a></td>
-            <td><a href="${showUrl}">Show</a></td>
+            <td><c:out value="${item.product}" /></td>
+            <td><a href="${deleteUrl}&userId=${pageContext.request.userPrincipal.name}">Delete</a></td>
+            <td><a href="${addUrl}?id=${pageContext.request.userPrincipal.name}">Add</a></td>
         </tr>
     </c:forEach>
     </tbody>
 </table>
 
-<c:if test="${empty usersList}">
-    There are currently no users in the list. <a href="${addUrl}">Add</a> an user.
+<c:if test="${empty itemsList}">
+    There are currently no items in the list for this user. <a href="${addUrl}?id=${pageContext.request.userPrincipal.name}">Add</a> an item..
 </c:if>
+
+
+<h1>Users</h1>
+<c:url var="mainUrl" value="/users/" />
+<p>Go to <a href="${mainUrl}">Main List</a></p>
 
 </body>
 </html>
