@@ -2,7 +2,7 @@ package com.datapine.dao.impl;
 
 import com.datapine.dao.ItemDAO;
 import com.datapine.domain.Item;
-import org.springframework.dao.support.DataAccessUtils;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +24,7 @@ public class ItemDAOImpl implements ItemDAO {
 
     @Override
     @Transactional
+    @Secured("ACL_ADD_ITEM")
     public void save(Item item) {
 
         if (item.getId() == null) {
@@ -33,13 +34,6 @@ public class ItemDAOImpl implements ItemDAO {
         }
     }
 
-//    @Override
-//    public boolean delete(Item item) {
-//        return em.createNamedQuery(Item.DELETE)
-//                .setParameter("id", item.getId())
-//                .setParameter("userId", item.getUser().getId())
-//                .executeUpdate() != 0;
-//    }
 
     @Override
     public boolean delete(long id) {

@@ -11,8 +11,6 @@ public interface ItemDAO {
 
     void save(Item item);
 
-//    boolean delete(Item item);
-
     boolean delete(long id);
 
     List<Item> findAllOrderById(long userId);

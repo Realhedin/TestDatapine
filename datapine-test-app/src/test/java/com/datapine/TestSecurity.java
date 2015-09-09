@@ -1,29 +1,24 @@
 package com.datapine;
 
+import com.datapine.dao.ItemDAO;
 import com.datapine.dao.UserDAO;
+import com.datapine.domain.Item;
 import com.datapine.domain.User;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.core.userdetails.memory.InMemoryDaoImpl;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.transaction.TransactionConfiguration;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +39,9 @@ public class TestSecurity {
 
    @Autowired
     private UserDAO userDAO;
+
+    @Autowired
+    private ItemDAO itemDAO;
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -89,4 +87,34 @@ public class TestSecurity {
         u.setId(1L);
         userDAO.update(u);
     }
+
+
+    /**
+     * ACL part that will protect adding item without permission
+     */
+    @Test
+    public void testItemAdd()
+    {
+        UserDetails userDetails = userDetailsService.loadUserByUsername("user@user.com");
+        Authentication authToken = new UsernamePasswordAuthenticationToken(userDetails.getUsername(), userDetails.getPassword(), userDetails.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(authToken);
+        Item item = new Item("keyboard");
+        item.setUser(userDAO.findByEmail(userDetails.getUsername()));
+        itemDAO.save(item);
+    }
+
+
+    @Test (expected = AccessDeniedException.class)
+    public void testItemAddInvalid()
+    {
+        UserDetails userDetails = userDetailsService.loadUserByUsername("acl@acl.com");
+        Authentication authToken = new UsernamePasswordAuthenticationToken(userDetails.getUsername(), userDetails.getPassword(), userDetails.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(authToken);
+        Item item = new Item("keyboard");
+        item.setUser(userDAO.findByEmail(userDetails.getUsername()));
+        itemDAO.save(item);
+    }
+
+
+
 }

@@ -13,7 +13,10 @@
 
 <h2>Login:</h2>
 <p style="background:rgba(145, 16, 255, 0.20)">Spring security login:
-<br>Current users: admin@admin.com/admin and user@user.com/user</p>
+<br>Current users:
+ <br>admin@admin.com/admin  - has ROLE_ADMIN (all privileges),
+    <br>user@user.com/user  - has ROLE_USER,
+    <br>acl@acl.com/acl - has ROLE_USER (but is not allowed to add Item via acl security)</p>
 <form method="POST" action="<c:url value="/j_spring_security_check" />" onsubmit="return validateEmail(j_username.value)">
     <table>
         <tr>
