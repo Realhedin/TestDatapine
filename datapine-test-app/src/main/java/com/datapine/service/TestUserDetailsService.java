@@ -2,6 +2,7 @@ package com.datapine.service;
 
 import com.datapine.dao.UserDAO;
 import com.datapine.domain.User;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -18,7 +19,7 @@ import java.util.List;
  */
 public class TestUserDetailsService implements UserDetailsService {
 
-    private final static org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(TestUserDetailsService.class);
+    private final static Logger logger = Logger.getLogger(TestUserDetailsService.class);
 
     @Autowired
     private UserDAO userDAO;
@@ -39,7 +40,7 @@ public class TestUserDetailsService implements UserDetailsService {
 
     private Collection<GrantedAuthority> getAuthorities(User user) {
         List<GrantedAuthority> authorityList = new ArrayList<GrantedAuthority>();
-        if (user.getEmail().equals("admin")) {
+        if (user.getEmail().equals("admin@admin.com")) {
             authorityList.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
             logger.info("User: "+user.getEmail()+" logged as ADMINISTRATOR");
             return authorityList;

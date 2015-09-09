@@ -65,10 +65,10 @@ public class TestSecurity {
     public void testValidRole()
     {
         //Get the user by username from configured user details service
-        UserDetails userDetails = userDetailsService.loadUserByUsername("admin");
+        UserDetails userDetails = userDetailsService.loadUserByUsername("admin@admin.com");
         Authentication authToken = new UsernamePasswordAuthenticationToken(userDetails.getUsername(), userDetails.getPassword(), userDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authToken);
-        User u = new User("user","user");
+        User u = new User("user@user.com","user");
         u.setId(1L);
         userDAO.update(u);
     }
@@ -80,12 +80,12 @@ public class TestSecurity {
     @Test (expected = AccessDeniedException.class)
     public void testInvalidRole()
     {
-        UserDetails userDetails = userDetailsService.loadUserByUsername ("user");
+        UserDetails userDetails = userDetailsService.loadUserByUsername ("user@user.com");
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
         authorities.add(new SimpleGrantedAuthority("ROLE_INVALID"));
         Authentication authToken = new UsernamePasswordAuthenticationToken (userDetails.getUsername(), userDetails.getPassword(), authorities);
         SecurityContextHolder.getContext().setAuthentication(authToken);
-        User u = new User("user","user");
+        User u = new User("user@user.com","user");
         u.setId(1L);
         userDAO.update(u);
     }

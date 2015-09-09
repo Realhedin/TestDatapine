@@ -1,5 +1,5 @@
-insert into users  values (1,'user','user');
-insert into users  values (2,'admin','admin');
+insert into users  values (1,'user@user.com','user');
+insert into users  values (2,'admin@admin.com','admin');
 
 insert into items values (1,'laptop',1);
 insert into items values (2, 'mouse',1);

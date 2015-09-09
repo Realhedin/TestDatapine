@@ -13,13 +13,13 @@
 
 <h2>Login:</h2>
 <p style="background:rgba(145, 16, 255, 0.20)">Spring security login:
-<br>Current users: admin/admin and user/user</p>
-<form method="POST" action="<c:url value="/j_spring_security_check" />">
+<br>Current users: admin@admin.com/admin and user@user.com/user</p>
+<form method="POST" action="<c:url value="/j_spring_security_check" />" onsubmit="return validateEmail(j_username.value)">
     <table>
         <tr>
             <td align="right"><spring:message code="label.login" /></td>
             <td><label>Email:</label>
-                <input type="text" name="j_username" required/></td>
+                <input type="text" name="j_username" required placeholder="Example@test.com"/></td>
         </tr>
         <tr>
             <td align="right"><spring:message code="label.password"/></td>
@@ -40,13 +40,26 @@
 
 <br><br>or<br>
 <h2>Register new user: </h2>
-<form name="regForm" method="post" action="register" onsubmit="return validateRegister()">
-    Email: <input name="email" type="text" required/>
+<form name="regForm" method="post" action="register" onsubmit="return validateEmail(email.value)">
+    Email: <input name="email" type="text" required placeholder="Example@test.com"/>
     <br />
     Password: <input name="password" type="password" required/>
     <br />
-    <input type="submit" value="register"/>
+    <input type="submit" value="register" />
 </form>
+
+<script type="application/javascript">
+    function validateEmail(email) {
+        var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+        if(re.test(email) == false) {
+            alert("Invalid email address. Please, use pattern: Example@test.com");
+            return false;
+        } else {
+            return true;
+        }
+    }
+</script>
 
 </body>
 </html>
+
