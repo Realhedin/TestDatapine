@@ -5,8 +5,8 @@ ________________Implemented________________
 4. Implementation of UserController logic for Users with necessary JSPs (instead analog logic for Items)
 5. Added logging with Log4j. (As required used for showing logging attempts + starting info)
 6. Added Spring Security with 2 predefined users.
-7. Added 3 roles for Security: /- open for everyone, /users/ and /users/show - open for registered,
-/users/add, /users/update and /users/delete - open only for ROLE_ADMIN
+7. Added 3 roles for Security: /- open for everyone, /users/  - open for registered,
+/users/show, /users/add, /users/update and /users/delete - open only for ROLE_ADMIN
 8. Added session management.
 9. Added security annotation for methods.
 10. Added 2 JUnit tests (Testing.java - test shows that communication with DB works properly,
@@ -15,7 +15,11 @@ TestSecurity.java - test shows predefined roles work properly to prevent action 
 11. Added Item domen and ItemDAO with ItemDAOImpl.
 12. Added business logic for Item according to User.
 13. Added Spring Security covering for /items/ urls.
-14. Added input validation on client side on login page
+14. Added input validation on client side on login page.
+
+15. Added Spring Security ACL inMemory configuration for existing users.
+16. Added ACL security on "add item" logic.
+17. Added 2 JUnit test to test ACL security with "add item".
 
 ____________________________________________
 Text for Pre-Email to applicant:
