@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
         if (user != null) {
             user.setPassword(newPassword);
         }
-        userDAO.update(user);
+        userDAO.save(user);
         return user;
     }
 }

@@ -12,7 +12,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Insert title here</title>
+    <title>List of items</title>
 </head>
 <body>
 
@@ -20,6 +20,10 @@
     <h2>Welcome : ${pageContext.request.userPrincipal.name}
         | <a href="<c:url value="/j_spring_security_logout" />" > Logout</a></h2>
 </c:if>
+
+<c:url var="changePass" value="/items/userEdit" />
+<h3> <a href="${changePass}">Edit password</a></h3>
+
 
 
 <h1>Items</h1>

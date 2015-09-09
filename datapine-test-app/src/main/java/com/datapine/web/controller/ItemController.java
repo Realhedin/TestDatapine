@@ -4,6 +4,8 @@ import com.datapine.dao.ItemDAO;
 import com.datapine.dao.UserDAO;
 import com.datapine.domain.Item;
 import com.datapine.domain.User;
+import com.datapine.domain.dto.UserDTO;
+import com.datapine.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -28,6 +30,9 @@ public class ItemController {
 
     @Autowired
     private UserDAO userDAO;
+
+    @Autowired
+    private UserService userService;
 
     @RequestMapping(value = {"/"}, method = RequestMethod.GET)
     public ModelAndView listItems(Principal principal) {
@@ -57,8 +62,26 @@ public class ItemController {
 
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
-    public ModelAndView deleteUser(@RequestParam(value = "id", required = true) Long id) {
+    public ModelAndView deleteItem(@RequestParam(value = "id", required = true) Long id) {
         itemDAO.delete(id);
+        return new ModelAndView("redirect:/items/");
+    }
+
+    @RequestMapping(value = "/userEdit", method = RequestMethod.GET)
+    public ModelAndView updateUserDetails(Principal principal) {
+        ModelAndView model = new ModelAndView("passUpdate");
+        User u = userDAO.findByEmail(principal.getName());
+        UserDTO userDTO = new UserDTO();
+        userDTO.setId(u.getId());
+        userDTO.setEmail(u.getEmail());
+        userDTO.setOldPassword(u.getPassword());
+        model.addObject("user",userDTO);
+        return model;
+    }
+
+    @RequestMapping(value = "/userEdit", method = RequestMethod.POST)
+    public ModelAndView updateUserDetails(@ModelAttribute("user") UserDTO userDTO) {
+        userService.updatePassword(userDTO.getId(),userDTO.getOldPassword(),userDTO.getNewPassword());
         return new ModelAndView("redirect:/items/");
     }
 }
