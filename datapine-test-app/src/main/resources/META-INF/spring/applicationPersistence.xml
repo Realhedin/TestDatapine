@@ -52,7 +52,7 @@
 
 
    <jdbc:initialize-database data-source="dataSource" enabled="true">
-        <!--<jdbc:script location="classpath:db/createDB.sql"/>-->
+        <jdbc:script location="classpath:META-INF/sql/createDB.sql"/>
         <jdbc:script encoding="utf-8" location="classpath:META-INF/sql/populateH2.sql"/>
     </jdbc:initialize-database>
 

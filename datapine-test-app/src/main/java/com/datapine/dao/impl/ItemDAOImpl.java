@@ -3,6 +3,10 @@ package com.datapine.dao.impl;
 import com.datapine.dao.ItemDAO;
 import com.datapine.domain.Item;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PostFilter;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.access.prepost.PreFilter;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,7 +28,7 @@ public class ItemDAOImpl implements ItemDAO {
 
     @Override
     @Transactional
-    @Secured("ACL_ADD_ITEM")
+    @Secured("ACL_ADD_ITEM") // Protection from inMemory realization from /acl
     public void save(Item item) {
 
         if (item.getId() == null) {
@@ -35,14 +39,25 @@ public class ItemDAOImpl implements ItemDAO {
     }
 
 
+//    @Override
+//    @PreAuthorize("hasPermission(#item, 'WRITE')")
+//    public boolean delete(long id) {
+//        return em.createNamedQuery(Item.DELETE)
+//                .setParameter("id",id)
+//                .executeUpdate() != 0;
+//    }
+
     @Override
-    public boolean delete(long id) {
+    @PostAuthorize("hasPermission(#item, 'WRITE')")    //protection from acl tables
+    public boolean delete(Item item) {
         return em.createNamedQuery(Item.DELETE)
-                .setParameter("id",id)
+                .setParameter("id",item.getId())
                 .executeUpdate() != 0;
     }
 
     @Override
+    //works but doesn't update list of Items after add (see ACL_ENTRY table)
+//    @PostFilter("hasPermission(filterObject,'READ')")     //protection from acl tables
     public List<Item> findAllOrderById(long userId) {
         return em.createNamedQuery(Item.ALL_SORTED, Item.class)
                 .setParameter("userId", userId)
@@ -50,6 +65,7 @@ public class ItemDAOImpl implements ItemDAO {
     }
 
     @Override
+    @PostAuthorize("hasPermission(returnObject,'READ')")    //protection from acl tables
     public Item get(long id) {
         return em.find(Item.class,id);
     }

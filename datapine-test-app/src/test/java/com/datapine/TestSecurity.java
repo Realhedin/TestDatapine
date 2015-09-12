@@ -4,11 +4,9 @@ import com.datapine.dao.ItemDAO;
 import com.datapine.dao.UserDAO;
 import com.datapine.domain.Item;
 import com.datapine.domain.User;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -33,9 +31,6 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class TestSecurity {
 
-    static ApplicationContext applicationContext = null;
-//    static InMemoryUserDetailsManager userDetailsService = null;
-     //static UserDetailsService userDetailsService = null;
 
    @Autowired
     private UserDAO userDAO;
@@ -46,15 +41,6 @@ public class TestSecurity {
     @Autowired
     private UserDetailsService userDetailsService;
 
-    @BeforeClass
-    public static void setup()
-    {
-        //Create application context instance
-        //applicationContext = new ClassPathXmlApplicationContext("META-INF/spring/applicationSecurity.xml");
-        //Get user details service configured in configuration
-        //userDetailsService = applicationContext.getBean(InMemoryUserDetailsManager.class);
-        //userDetailsService = (UserDetailsService) applicationContext.getBean("userDetailsService");
-    }
 
     /**
      * Test the valid user with valid role
@@ -115,6 +101,55 @@ public class TestSecurity {
         itemDAO.save(item);
     }
 
+
+
+    /**
+     *   Test ACL tables
+     */
+    // test READ
+    @Test
+    public void testGetItem()
+    {
+        UserDetails userDetails = userDetailsService.loadUserByUsername("acl@acl.com");
+        Authentication authToken = new UsernamePasswordAuthenticationToken(userDetails.getUsername(), userDetails.getPassword(), userDetails.getAuthorities());
+      SecurityContextHolder.getContext().setAuthentication(authToken);
+      itemDAO.get(9);
+    }
+
+
+    @Test (expected = AccessDeniedException.class)
+    public void testGetItemInvalid()
+    {
+      UserDetails userDetails = userDetailsService.loadUserByUsername("test@test.com");
+      Authentication authToken = new UsernamePasswordAuthenticationToken(userDetails.getUsername(), userDetails.getPassword(), userDetails.getAuthorities());
+      SecurityContextHolder.getContext().setAuthentication(authToken);
+      itemDAO.get(10);
+    }
+
+
+
+    //test WRITE
+    @Test
+    public void testDeleteItem()
+    {
+        UserDetails userDetails = userDetailsService.loadUserByUsername("admin@admin.com");
+        Authentication authToken = new UsernamePasswordAuthenticationToken(userDetails.getUsername(), userDetails.getPassword(), userDetails.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(authToken);
+        itemDAO.delete(itemDAO.get(5));
+    }
+
+
+
+
+    @Test (expected = AccessDeniedException.class)
+    public void testDeleteItemInvalid()
+    {
+        UserDetails userDetails = userDetailsService.loadUserByUsername("acl@acl.com");
+        Authentication authToken = new UsernamePasswordAuthenticationToken(userDetails.getUsername(), userDetails.getPassword(), userDetails.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(authToken);
+        Item item = itemDAO.get(8);
+        itemDAO.delete(item);
+    }
 
 
 }

@@ -63,7 +63,9 @@ public class ItemController {
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public ModelAndView deleteItem(@RequestParam(value = "id", required = true) Long id) {
-        itemDAO.delete(id);
+        Item i = itemDAO.get(id);
+        //itemDAO.delete(id);
+        itemDAO.delete(i);
         return new ModelAndView("redirect:/items/");
     }
 
