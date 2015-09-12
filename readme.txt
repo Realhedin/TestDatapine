@@ -21,6 +21,10 @@ TestSecurity.java - test shows predefined roles work properly to prevent action 
 16. Added ACL security on "add item" logic.
 17. Added 2 JUnit test to test ACL security with "add item".
 
+18. Added ACL tables (for classic ACL security realization).
+19. Added Configuration to enable ACL.
+20. Added method protection for ItemDAOImpl class on get(), delete() and getAll() [commented]
+21. Added 4 JUnit test to show that this logic works.
 ____________________________________________
 Text for Pre-Email to applicant:
 You will receive an application skeleton with a number of tasks to complete. The application is a web application, which uses Maven, JPA and Spring. It comes with an embedded H2 database and the Maven Jetty plugin configured.
