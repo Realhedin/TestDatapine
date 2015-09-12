@@ -1,5 +1,8 @@
 package com.datapine.domain;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 
 /**
@@ -23,7 +26,8 @@ public class Item {
     @Column(name = "product", nullable = false)
     private String product;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
