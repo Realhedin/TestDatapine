@@ -44,11 +44,9 @@ public class TestUserDetailsService implements UserDetailsService {
         List<GrantedAuthority> authorityList = new ArrayList<GrantedAuthority>();
         if (user.getEmail().equals("admin@admin.com")) {
             authorityList.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-            logger.info("Log4j: User: "+user.getEmail()+" logged as ADMINISTRATOR");
             return authorityList;
         }
         authorityList.add(new SimpleGrantedAuthority("ROLE_USER"));
-        logger.info("Log4j: User: "+user.getEmail()+ " successfully logged");
         return authorityList;
     }
 }
