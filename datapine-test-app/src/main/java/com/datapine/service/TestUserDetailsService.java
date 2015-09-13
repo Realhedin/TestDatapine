@@ -15,6 +15,8 @@ import java.util.Collection;
 import java.util.List;
 
 /**
+ * Helper class to manually add roles to the logged users.
+ *
  * Created by Dmitrii on 9/7/15.
  */
 public class TestUserDetailsService implements UserDetailsService {
@@ -26,12 +28,12 @@ public class TestUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        logger.info("User: "+username + " is trying to login...");
+        logger.info("Log4j: User: "+username + " is trying to login...");
 
         User user = userDAO.findByEmail(username);
         if (user == null) {
-            logger.info("User: " +username + " was not found!");
-            logger.info("Redirected to login page");
+            logger.info("Log4j: User: " +username + " was not found!");
+            logger.info("Log4j: Redirected to login page");
             return null;
         }
         return new org.springframework.security.core.userdetails.User(user.getEmail(),user.getPassword()
@@ -42,11 +44,11 @@ public class TestUserDetailsService implements UserDetailsService {
         List<GrantedAuthority> authorityList = new ArrayList<GrantedAuthority>();
         if (user.getEmail().equals("admin@admin.com")) {
             authorityList.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-            logger.info("User: "+user.getEmail()+" logged as ADMINISTRATOR");
+            logger.info("Log4j: User: "+user.getEmail()+" logged as ADMINISTRATOR");
             return authorityList;
         }
         authorityList.add(new SimpleGrantedAuthority("ROLE_USER"));
-        logger.info("User: "+user.getEmail()+ " successfully logged");
+        logger.info("Log4j: User: "+user.getEmail()+ " successfully logged");
         return authorityList;
     }
 }
